@@ -17,9 +17,44 @@ NOTES: Don't create new string.
 
 */
 
+
 #include <stdio.h>
 
 
-void number_to_str(float number, char *str,int afterdecimal){
-	
+void number_to_str(float number, char *str, int afterdecimal)
+{
+	int r, i, j, flag = 0;
+	char t;
+	for (i = 0; i < afterdecimal; i++)
+	{
+		number = number * 10;
+	}
+	if (number < 0)
+	{
+		number = number*-1;
+		flag = -1;
+	}
+	for (i = 0; (int)number != 0; i++)
+	{
+		r = (int)number % 10;
+		str[i] = r + '0';
+		number = number / 10;
+		if (afterdecimal == i + 1)
+		{
+			i++;
+			str[i] = '.';
+		}
+	}
+	//str[i] = '\0';
+	if (flag == -1)
+		str[i] = '-';
+	else
+		i--;
+	for (j = 0; i > j; j++, i--)
+	{
+		t = str[i];
+		str[i] = str[j];
+		str[j] = t;
+	}
+	str[i + j + 1] = '\0';
 }
